@@ -12,7 +12,7 @@
 
 | #   | Issue                                    | ブランチ              | ステータス |
 | --- | ---------------------------------------- | --------------------- | ---------- |
-| 1   | [プロジェクト初期化](01-init-project.md) | `feat/init-project`   | 未着手     |
+| 1   | [プロジェクト初期化](01-init-project.md) | `feat/init-project`   | 完了       |
 | 2   | [DB設定](02-database-setup.md)           | `feat/database-setup` | 未着手     |
 | 3   | [データ取得基盤](03-data-fetcher.md)     | `feat/data-fetcher`   | 未着手     |
 | 4   | [ランキングAPI](04-ranking-api.md)       | `feat/ranking-api`    | 未着手     |
