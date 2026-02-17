@@ -51,6 +51,7 @@ e2e/               # E2Eテスト
 7. ブランチ命名: `feat/`, `fix/`, `refactor/` + 機能名
 8. ビジネスロジック（`lib/`）には必ずテスト作成
 9. コミット前に `pnpm check` でBiomeチェック
+10. **mainブランチへの直接コミット禁止** - 必ずfeatureブランチからPR経由でマージ
 
 ## Claude Code セキュリティ
 
