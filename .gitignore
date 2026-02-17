@@ -52,3 +52,5 @@ next-env.d.ts
 
 # Temporary
 temp-next/
+
+/src/generated/prisma

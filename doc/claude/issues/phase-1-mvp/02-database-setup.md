@@ -1,7 +1,7 @@
-# Issue 2: DB設定
+# DB設定
 
 - **ブランチ**: `feat/database-setup`
-- **ステータス**: 未着手
+- **ステータス**: 完了
 
 ## 作業内容
 
@@ -22,6 +22,6 @@ pnpm dlx prisma init
 
 ## 完了条件
 
-- [ ] Prismaが設定されている
-- [ ] Supabaseに接続できる
-- [ ] Stockテーブルが作成されている
+- [x] Prismaが設定されている
+- [ ] Supabaseに接続できる（要.env.local設定）
+- [ ] Stockテーブルが作成されている（要prisma db push）

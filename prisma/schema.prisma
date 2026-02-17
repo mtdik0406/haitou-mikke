@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// 銘柄情報
+model Stock {
+  id            Int      @id @default(autoincrement())
+  /// 証券コード（例: 7203）
+  code          String   @unique @db.VarChar(10)
+  /// 銘柄名
+  name          String   @db.VarChar(100)
+  /// セクター/業種
+  sector        String?  @db.VarChar(50)
+  /// 現在株価
+  price         Decimal? @db.Decimal(12, 2)
+  /// 配当利回り（%）
+  dividendYield Decimal? @db.Decimal(6, 4)
+  /// 年間配当金額
+  dividend      Decimal? @db.Decimal(12, 2)
+  /// 時価総額（百万円）
+  marketCap     BigInt?
+  /// PER（株価収益率）
+  per           Decimal? @db.Decimal(10, 2)
+  /// PBR（株価純資産倍率）
+  pbr           Decimal? @db.Decimal(10, 2)
+  /// 日経225採用銘柄かどうか
+  isNikkei225   Boolean  @default(false)
+  /// 作成日時
+  createdAt     DateTime @default(now())
+  /// 更新日時
+  updatedAt     DateTime @updatedAt
+
+  @@index([dividendYield(sort: Desc)])
+  @@index([sector])
+  @@index([isNikkei225])
+}

@@ -30,11 +30,20 @@
    - [テンプレート](issues/_template.md)を使用して各Issueファイルを作成
    - 依存関係を考慮して実装順を決定
 
-3. **Issue順に開発**
-   - `gh issue create` でGitHub Issueを作成
-   - ブランチ作成 → 実装 → テスト → PR
+3. **GitHub Issue作成**
+   ```bash
+   # Issue作成
+   gh issue create --title "feat: 機能名" --body "## 概要\n\n## タスク\n- [ ] タスク1"
 
-4. **ステータス更新**
+   # テンプレートから作成
+   gh issue create --title "タイトル" --body-file doc/claude/issues/phase-X/XX-name.md
+   ```
+
+4. **Issue順に開発**
+   - ブランチ作成 → 実装 → テスト → PR
+   - PR作成時にIssueを紐付け: `gh pr create --body "Closes #<Issue番号>"`
+
+5. **ステータス更新**
    - 各Issue完了時にステータスを更新
    - フェーズ完了後、README.mdのチェックリストを更新
 
