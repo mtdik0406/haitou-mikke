@@ -1,23 +1,25 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+// vi.hoistedでモック関数を先に定義（vi.mockより先に実行される）
+const mockQuoteFn = vi.hoisted(() => vi.fn());
+
+// yahoo-finance2をモック（クラスコンストラクタとして）
+vi.mock("yahoo-finance2", () => ({
+  default: class MockYahooFinance {
+    quote = mockQuoteFn;
+  },
+}));
+
 import {
   fetchStockQuote,
   fetchStockQuotes,
   getNikkei225List,
   toYahooTicker,
 } from "@/lib/stock-fetcher";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-// yahoo-finance2をモック
-vi.mock("yahoo-finance2", () => ({
-  default: {
-    quote: vi.fn(),
-  },
-}));
-
-import yahooFinance from "yahoo-finance2";
 
 describe("stock-fetcher", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    mockQuoteFn.mockReset();
   });
 
   describe("getNikkei225List", () => {
@@ -55,7 +57,7 @@ describe("stock-fetcher", () => {
 
   describe("fetchStockQuote", () => {
     it("正常にデータを取得できる", async () => {
-      const mockQuote = {
+      const mockResponse = {
         shortName: "TOYOTA MOTOR CORP",
         longName: "Toyota Motor Corporation",
         regularMarketPrice: 2500,
@@ -66,7 +68,7 @@ describe("stock-fetcher", () => {
         priceToBook: 1.2,
       };
 
-      vi.mocked(yahooFinance.quote).mockResolvedValue(mockQuote);
+      mockQuoteFn.mockResolvedValue(mockResponse);
 
       const result = await fetchStockQuote("7203");
 
@@ -80,11 +82,11 @@ describe("stock-fetcher", () => {
       expect(result?.per).toBe(10.5);
       expect(result?.pbr).toBe(1.2);
 
-      expect(yahooFinance.quote).toHaveBeenCalledWith("7203.T");
+      expect(mockQuoteFn).toHaveBeenCalledWith("7203.T");
     });
 
     it("APIエラー時はnullを返す", async () => {
-      vi.mocked(yahooFinance.quote).mockRejectedValue(new Error("API Error"));
+      mockQuoteFn.mockRejectedValue(new Error("API Error"));
 
       const result = await fetchStockQuote("7203");
 
@@ -92,13 +94,13 @@ describe("stock-fetcher", () => {
     });
 
     it("部分的なデータでも処理できる", async () => {
-      const mockQuote = {
+      const mockResponse = {
         shortName: "TEST CORP",
         regularMarketPrice: 1000,
         // 配当情報なし
       };
 
-      vi.mocked(yahooFinance.quote).mockResolvedValue(mockQuote);
+      mockQuoteFn.mockResolvedValue(mockResponse);
 
       const result = await fetchStockQuote("9999");
 
@@ -111,21 +113,21 @@ describe("stock-fetcher", () => {
 
   describe("fetchStockQuotes", () => {
     it("複数銘柄を取得できる", async () => {
-      const mockQuote = {
+      const mockResponse = {
         shortName: "TEST",
         regularMarketPrice: 1000,
       };
 
-      vi.mocked(yahooFinance.quote).mockResolvedValue(mockQuote);
+      mockQuoteFn.mockResolvedValue(mockResponse);
 
       const results = await fetchStockQuotes(["7203", "9984", "6758"]);
 
       expect(results).toHaveLength(3);
-      expect(yahooFinance.quote).toHaveBeenCalledTimes(3);
+      expect(mockQuoteFn).toHaveBeenCalledTimes(3);
     });
 
     it("失敗した銘柄はスキップされる", async () => {
-      vi.mocked(yahooFinance.quote)
+      mockQuoteFn
         .mockResolvedValueOnce({ shortName: "A", regularMarketPrice: 100 })
         .mockRejectedValueOnce(new Error("Error"))
         .mockResolvedValueOnce({ shortName: "C", regularMarketPrice: 300 });
