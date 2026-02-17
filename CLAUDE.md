@@ -34,6 +34,8 @@ pnpm build        # ビルド
 ## 詳細ドキュメント
 
 - [開発ワークフロー](doc/claude/development-workflow.md) - Issue駆動開発の詳細手順
+- [CI/CDガイド](doc/claude/ci-guide.md) - CI失敗時の対応、PRラベル
+- [トラブルシューティング](doc/claude/troubleshooting.md) - よくある問題と解決方法
 - [コーディング規約](doc/claude/coding-standards.md)
 - [テスト戦略](doc/claude/testing.md)
 - [アーキテクチャ](doc/claude/architecture.md)
