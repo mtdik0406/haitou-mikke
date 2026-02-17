@@ -1,6 +1,7 @@
 # ランキングAPI
 
 - **GitHub**: [#2](https://github.com/mtdik0406/haitou-mikke/issues/2)
+- **PR**: [#6](https://github.com/mtdik0406/haitou-mikke/pull/6)
 - **ブランチ**: `feat/ranking-api`
 - **ステータス**: 完了
 
