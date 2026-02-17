@@ -64,6 +64,21 @@ gh pr merge <PR番号> --squash --delete-branch
 gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
 ```
 
+### 5. Issueクローズ
+
+**チェックリストが全て完了したらIssueをクローズする。**
+
+```bash
+# チェックリストの状態を確認
+gh issue view <Issue番号>
+
+# 全て完了していればクローズ
+gh issue close <Issue番号>
+```
+
+> **Note**: PRに `Closes #番号` を含めている場合、PRマージ時に自動クローズされる。
+> 手動クローズが必要なのは、PRとは別にIssueのチェックリストを管理している場合のみ。
+
 ---
 
 ## フェーズ一覧
