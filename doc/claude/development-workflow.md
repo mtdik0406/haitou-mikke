@@ -62,6 +62,11 @@ gh pr checks <PR番号> --watch
 ```bash
 gh pr merge <PR番号> --squash --delete-branch
 gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
+
+# mainに戻ってブランチ参照を整理
+git checkout main
+git pull origin main
+git fetch --prune  # 削除済みリモートブランチの参照を削除
 ```
 
 ### 5. Issueクローズ
