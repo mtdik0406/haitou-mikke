@@ -2,6 +2,8 @@
 
 配当株情報サービス - 日本株の配当利回りランキングを提供するWebアプリケーション
 
+**GitHub**: https://github.com/mtdik0406/haitou-mikke
+
 ## 技術スタック
 
 - Next.js 16 (App Router) + React 19 + TypeScript
@@ -83,6 +85,22 @@ claude --sandbox
 
 詳細は [開発ワークフロー](doc/claude/development-workflow.md) を参照。
 
+### GitHub Issue管理
+
+```bash
+# Issue一覧
+gh issue list
+
+# Issue作成
+gh issue create --title "タイトル" --body "内容"
+
+# Issue確認
+gh issue view <番号>
+
+# PRとIssueを紐付け（PR作成時）
+gh pr create --title "feat: 機能名" --body "Closes #<Issue番号>"
+```
+
 ### 品質ゲート（必須）
 
 | チェック | コマンド |
@@ -93,7 +111,7 @@ claude --sandbox
 
 ### 基本原則
 
-- Issue駆動で作業開始
+- Issue駆動で作業開始（`gh issue create`）
 - lib/の変更にはテスト必須
 - マージ前に `/review-pr` でレビュー
 
