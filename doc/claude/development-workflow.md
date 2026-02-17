@@ -1,11 +1,52 @@
 # 開発ワークフロー
 
-## 開発フロー
+## 開発フロー（必須手順）
 
-各機能をGitHub Issueとして管理し、以下のフローで開発を進める：
+**GitHub Issueをベースに作業を進める。以下の手順を厳守すること。**
 
+### 1. Issue確認・作成
+
+```bash
+# 既存Issueを確認
+gh issue view <番号>
+
+# 新規Issue作成（作業内容と完了条件を明記）
+gh issue create --title "feat: 機能名" --body "## 作業内容
+- [ ] タスク1
+- [ ] タスク2
+
+## 完了条件
+- [ ] 条件1
+- [ ] 条件2"
 ```
-1. Issue作成 → 2. ブランチ作成 → 3. 実装 → 4. テスト → 5. PR作成 → 6. mainマージ
+
+### 2. ブランチ作成・実装
+
+```bash
+git checkout -b feat/機能名
+# 実装...
+pnpm check && pnpm test && pnpm build  # 品質チェック必須
+```
+
+### 3. PR作成（Issueにリンク）
+
+```bash
+git add . && git commit -m "feat: 説明"
+git push -u origin feat/機能名
+gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
+
+## Summary
+- 変更内容
+
+## Test plan
+- テスト方法"
+```
+
+### 4. マージ・Issue更新
+
+```bash
+gh pr merge <PR番号> --squash --delete-branch
+gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
 ```
 
 ---
