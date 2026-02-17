@@ -25,7 +25,8 @@
       "Bash(pnpm dlx prisma:*)",
       "WebFetch(domain:haitoukabu.com)",
       "mcp__plugin_serena_serena__list_dir",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(gh api:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
