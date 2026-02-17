@@ -17,11 +17,11 @@
 | [データ取得基盤](03-data-fetcher.md)     | `feat/data-fetcher`   | [#1](https://github.com/mtdik0406/haitou-mikke/issues/1) | 完了 |
 | [ランキングAPI](04-ranking-api.md)       | `feat/ranking-api`    | [#2](https://github.com/mtdik0406/haitou-mikke/issues/2) | 完了 |
 | [ランキングUI](05-ranking-ui.md)         | `feat/ranking-ui`     | [#3](https://github.com/mtdik0406/haitou-mikke/issues/3) | 完了 |
-| [銘柄詳細ページ](06-stock-detail.md)     | `feat/stock-detail`   | [#4](https://github.com/mtdik0406/haitou-mikke/issues/4) | 未着手 |
+| [銘柄詳細ページ](06-stock-detail.md)     | `feat/stock-detail`   | [#4](https://github.com/mtdik0406/haitou-mikke/issues/4) | 完了 |
 
 ## 完了条件
 
 - [x] ランキングページでソート・フィルタが動作する
-- [ ] 銘柄詳細ページで配当情報が表示される
+- [x] 銘柄詳細ページで配当情報が表示される
 - [x] モバイル対応（レスポンシブデザイン）
 - [x] 全テストがパスする
