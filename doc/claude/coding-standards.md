@@ -14,12 +14,28 @@ const headersList = await headers()
 
 対象API: `cookies()`, `headers()`, `params`, `searchParams`
 
+#### searchParams の使用例
+
+```typescript
+// src/app/stocks/page.tsx
+export default async function StocksPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sort?: string; page?: string }>
+}) {
+  const { sort = 'dividendYield', page = '1' } = await searchParams
+  // ...
+}
+```
+
 ### proxy.ts（リクエスト処理）
+
+> **Note**: Phase 2（認証実装時）に作成予定。現在は未実装。
 
 Next.js 16 では `proxy.ts` でリクエスト処理を行う。
 
 ```typescript
-// src/proxy.ts
+// src/proxy.ts（Phase 2 で実装予定）
 export function proxy(request: Request) {
   // 認証チェック、リダイレクトなど
   const url = new URL(request.url)
