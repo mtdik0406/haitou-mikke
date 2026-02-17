@@ -31,6 +31,18 @@ pnpm check && pnpm test && pnpm build  # 品質チェック必須
 ### 3. PR作成（Issueにリンク）
 
 ```bash
+# 1. mainブランチの最新を取得してマージ
+git fetch origin main
+git merge origin/main
+
+# 2. 品質チェック
+pnpm check && pnpm test && pnpm build
+
+# 3. ローカルサーバーで動作確認
+pnpm dev
+# http://localhost:3000 でアクセスし、問題ないことを確認
+
+# 4. コミット・プッシュ・PR作成
 git add . && git commit -m "feat: 説明"
 git push -u origin feat/機能名
 gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
@@ -40,6 +52,9 @@ gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
 
 ## Test plan
 - テスト方法"
+
+# 5. CIが通ることを確認してからマージ
+gh pr checks <PR番号> --watch
 ```
 
 ### 4. マージ・Issue更新
@@ -55,7 +70,7 @@ gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
 
 | フェーズ | 内容 | ステータス |
 |---------|------|-----------|
-| [Phase 1: MVP](issues/phase-1-mvp/README.md) | 配当利回りランキングの基本機能 | 進行中 |
+| [Phase 1: MVP](issues/phase-1-mvp/README.md) | 配当利回りランキングの基本機能 | 完了 |
 
 ---
 

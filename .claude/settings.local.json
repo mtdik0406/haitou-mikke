@@ -26,7 +26,8 @@
       "WebFetch(domain:haitoukabu.com)",
       "mcp__plugin_serena_serena__list_dir",
       "Bash(git init:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(curl:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
