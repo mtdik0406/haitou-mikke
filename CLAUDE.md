@@ -82,24 +82,64 @@ claude --sandbox
 3. gh pr merge      → mainにマージ
 ```
 
-## AIエージェント自動開発フロー
+## 開発フロー（必須）
 
-詳細は [開発ワークフロー](doc/claude/development-workflow.md) を参照。
+**GitHub Issueをベースに作業を進める。以下の手順を厳守すること。**
 
-### GitHub Issue管理
+### 1. Issue確認・作成
 
 ```bash
-# Issue一覧
-gh issue list
-
-# Issue作成
-gh issue create --title "タイトル" --body "内容"
-
-# Issue確認
+# 既存Issueを確認
 gh issue view <番号>
 
-# PRとIssueを紐付け（PR作成時）
-gh pr create --title "feat: 機能名" --body "Closes #<Issue番号>"
+# 新規Issue作成（作業内容と完了条件を明記）
+gh issue create --title "feat: 機能名" --body "## 作業内容
+- [ ] タスク1
+- [ ] タスク2
+
+## 完了条件
+- [ ] 条件1
+- [ ] 条件2"
+```
+
+### 2. ブランチ作成・実装
+
+```bash
+# featureブランチ作成
+git checkout -b feat/機能名
+
+# 実装...
+
+# 品質チェック（必須）
+pnpm check && pnpm test && pnpm build
+```
+
+### 3. PR作成（Issueにリンク）
+
+```bash
+# コミット・プッシュ・PR作成
+git add . && git commit -m "feat: 説明"
+git push -u origin feat/機能名
+gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
+
+## Summary
+- 変更内容
+
+## Test plan
+- テスト方法"
+```
+
+### 4. マージ・Issue更新
+
+```bash
+# PRマージ
+gh pr merge <PR番号> --squash --delete-branch
+
+# Issueのチェックボックスを更新
+gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
+
+# Issueクローズ（PRでCloses指定していれば自動）
+gh issue close <Issue番号>
 ```
 
 ### 品質ゲート（必須）
@@ -112,9 +152,10 @@ gh pr create --title "feat: 機能名" --body "Closes #<Issue番号>"
 
 ### 基本原則
 
-- Issue駆動で作業開始（`gh issue create`）
-- lib/の変更にはテスト必須
-- マージ前に `/review-pr` でレビュー
+- **Issue駆動**: 作業前に必ずIssue確認/作成
+- **PRリンク**: PRはIssueにリンク（`Closes #番号`）
+- **チェック更新**: 完了項目はIssueのチェックボックスを更新
+- **mainブランチ禁止**: 直接コミット/プッシュ禁止
 
 ## 詳細ドキュメント
 
