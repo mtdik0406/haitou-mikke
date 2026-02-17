@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Stock, StockFilters as StockFiltersType, StocksResponse } from "@/types/stock";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 /**
@@ -172,10 +173,22 @@ export function StockRankingTable() {
                     {stocks.map((stock, index) => (
                       <TableRow key={stock.code}>
                         <TableCell className="text-center font-medium">{getRank(index)}</TableCell>
-                        <TableCell className="font-mono">{stock.code}</TableCell>
+                        <TableCell className="font-mono">
+                          <Link
+                            href={`/stocks/${stock.code}`}
+                            className="hover:text-primary hover:underline"
+                          >
+                            {stock.code}
+                          </Link>
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <span className="truncate max-w-[200px]">{stock.name}</span>
+                            <Link
+                              href={`/stocks/${stock.code}`}
+                              className="truncate max-w-[200px] hover:text-primary hover:underline"
+                            >
+                              {stock.name}
+                            </Link>
                             {stock.isNikkei225 && (
                               <Badge variant="secondary" className="shrink-0">
                                 N225
@@ -203,7 +216,11 @@ export function StockRankingTable() {
               <div className="sm:hidden">
                 <div className="divide-y">
                   {stocks.map((stock, index) => (
-                    <div key={stock.code} className="p-4 space-y-2">
+                    <Link
+                      key={stock.code}
+                      href={`/stocks/${stock.code}`}
+                      className="block p-4 space-y-2 hover:bg-muted/50 transition-colors"
+                    >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2">
                           <span className="text-lg font-bold text-muted-foreground w-8">
@@ -244,7 +261,7 @@ export function StockRankingTable() {
                           <div>{formatMarketCap(stock.marketCap)}</div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
