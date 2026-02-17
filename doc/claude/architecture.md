@@ -56,17 +56,23 @@ revalidateTag('rankings')
 
 ```prisma
 model Stock {
-  id            String   @id @default(cuid())
-  code          String   @unique  // 証券コード
-  name          String            // 会社名
-  sector        String            // 業種
-  marketCap     BigInt?           // 時価総額
-  price         Float?            // 株価
-  dividend      Float?            // 年間配当金
-  dividendYield Float?            // 配当利回り
-  payoutRatio   Float?            // 配当性向
-  updatedAt     DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  code          String   @unique @db.VarChar(10)   // 証券コード
+  name          String   @db.VarChar(100)          // 銘柄名
+  sector        String?  @db.VarChar(50)           // 業種
+  price         Decimal? @db.Decimal(12, 2)        // 現在株価
+  dividendYield Decimal? @db.Decimal(6, 4)         // 配当利回り（%）
+  dividend      Decimal? @db.Decimal(12, 2)        // 年間配当金額
+  marketCap     BigInt?                            // 時価総額（百万円）
+  per           Decimal? @db.Decimal(10, 2)        // PER
+  pbr           Decimal? @db.Decimal(10, 2)        // PBR
+  isNikkei225   Boolean  @default(false)           // 日経225採用銘柄
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([dividendYield(sort: Desc)])
+  @@index([sector])
+  @@index([isNikkei225])
 }
 ```
 
@@ -129,7 +135,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -159,7 +165,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -174,8 +180,11 @@ jobs:
 
 #### CD（mainマージ時）
 
+> **Note**: 現在は Vercel の GitHub 連携による自動デプロイを使用中のため、deploy.yml は未実装。
+> 必要に応じて以下の設定を追加可能。
+
 ```yaml
-# .github/workflows/deploy.yml
+# .github/workflows/deploy.yml（参考）
 name: Deploy
 
 on:
