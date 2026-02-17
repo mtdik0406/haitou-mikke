@@ -22,6 +22,7 @@ pnpm build        # ビルド
 3. **PRはIssueにリンク** - `Closes #番号` を本文に含める
 4. **品質チェック必須** - `pnpm check && pnpm test && pnpm build`
 5. **lib/変更にはテスト必須**
+6. **Issueチェックリスト完了時はクローズ** - 全タスク完了後 `gh issue close` を実行
 
 ## コーディング規約
 
