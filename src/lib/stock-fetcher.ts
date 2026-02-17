@@ -1,5 +1,7 @@
-import yahooFinance from "yahoo-finance2";
+import YahooFinance from "yahoo-finance2";
 import nikkei225Data from "../../data/nikkei225.json";
+
+const yahooFinance = new YahooFinance();
 
 export interface StockQuote {
   code: string;
