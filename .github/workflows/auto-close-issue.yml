@@ -1,0 +1,49 @@
+# Issueのチェックリストが全て完了したら自動クローズ
+name: Auto Close Issue
+
+on:
+  issues:
+    types: [edited]
+
+jobs:
+  check-and-close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if all tasks are completed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            // チェックリストを検出
+            const unchecked = (body.match(/- \[ \]/g) || []).length;
+            const checked = (body.match(/- \[x\]/gi) || []).length;
+
+            console.log(`Checked: ${checked}, Unchecked: ${unchecked}`);
+
+            // チェックリストがない場合は何もしない
+            if (checked === 0 && unchecked === 0) {
+              console.log('No checklist found, skipping.');
+              return;
+            }
+
+            // 全て完了している場合はクローズ
+            if (unchecked === 0 && checked > 0) {
+              console.log('All tasks completed! Closing issue...');
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'completed'
+              });
+
+              // コメントを追加
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: '✅ 全てのタスクが完了したため、自動クローズしました。'
+              });
+            }
