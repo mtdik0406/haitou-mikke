@@ -14,8 +14,8 @@
 | ---------------------------------------- | --------------------- | ------ | ---------- |
 | [プロジェクト初期化](01-init-project.md) | `feat/init-project`   | -      | 完了       |
 | [DB設定](02-database-setup.md)           | `feat/database-setup` | -      | 完了       |
-| [データ取得基盤](03-data-fetcher.md)     | `feat/data-fetcher`   | [#1](https://github.com/mtdik0406/haitou-mikke/issues/1) | 未着手 |
-| [ランキングAPI](04-ranking-api.md)       | `feat/ranking-api`    | [#2](https://github.com/mtdik0406/haitou-mikke/issues/2) | 未着手 |
+| [データ取得基盤](03-data-fetcher.md)     | `feat/data-fetcher`   | [#1](https://github.com/mtdik0406/haitou-mikke/issues/1) | 完了 |
+| [ランキングAPI](04-ranking-api.md)       | `feat/ranking-api`    | [#2](https://github.com/mtdik0406/haitou-mikke/issues/2) | 完了 |
 | [ランキングUI](05-ranking-ui.md)         | `feat/ranking-ui`     | [#3](https://github.com/mtdik0406/haitou-mikke/issues/3) | 未着手 |
 | [銘柄詳細ページ](06-stock-detail.md)     | `feat/stock-detail`   | [#4](https://github.com/mtdik0406/haitou-mikke/issues/4) | 未着手 |
 

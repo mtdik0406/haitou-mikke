@@ -1,8 +1,9 @@
 # データ取得基盤
 
 - **GitHub**: [#1](https://github.com/mtdik0406/haitou-mikke/issues/1)
+- **PR**: [#5](https://github.com/mtdik0406/haitou-mikke/pull/5)
 - **ブランチ**: `feat/data-fetcher`
-- **ステータス**: 未着手
+- **ステータス**: 完了
 
 ## 作業内容
 
@@ -27,6 +28,6 @@ pnpm add yahoo-finance2
 
 ## 完了条件
 
-- [ ] yahoo-finance2でデータ取得できる
-- [ ] 銘柄マスターデータがDBに保存される
-- [ ] 配当データがDBに保存される
+- [x] yahoo-finance2でデータ取得できる
+- [x] 銘柄マスターデータがDBに保存される
+- [x] 配当データがDBに保存される
