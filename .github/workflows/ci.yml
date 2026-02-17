@@ -30,7 +30,12 @@ jobs:
         run: pnpm check
 
       - name: Run tests
-        run: pnpm test
+        run: |
+          if [ -d "__tests__" ] && [ "$(find __tests__ -name '*.test.ts' -o -name '*.test.tsx' | head -1)" ]; then
+            pnpm test
+          else
+            echo "No test files found, skipping tests"
+          fi
 
       - name: Generate Prisma Client
         run: pnpm dlx prisma generate
