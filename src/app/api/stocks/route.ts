@@ -109,17 +109,17 @@ export async function GET(request: NextRequest) {
       take: params.limit,
     });
 
-    // レスポンスを整形
+    // レスポンスを整形（0値を正しく扱うため != null でチェック）
     const data: StockItem[] = stocks.map((stock) => ({
       code: stock.code,
       name: stock.name,
       sector: stock.sector,
-      price: stock.price ? Number(stock.price) : null,
-      dividendYield: stock.dividendYield ? Number(stock.dividendYield) : null,
-      dividend: stock.dividend ? Number(stock.dividend) : null,
-      marketCap: stock.marketCap ? Number(stock.marketCap) : null,
-      per: stock.per ? Number(stock.per) : null,
-      pbr: stock.pbr ? Number(stock.pbr) : null,
+      price: stock.price != null ? Number(stock.price) : null,
+      dividendYield: stock.dividendYield != null ? Number(stock.dividendYield) : null,
+      dividend: stock.dividend != null ? Number(stock.dividend) : null,
+      marketCap: stock.marketCap != null ? Number(stock.marketCap) : null,
+      per: stock.per != null ? Number(stock.per) : null,
+      pbr: stock.pbr != null ? Number(stock.pbr) : null,
       isNikkei225: stock.isNikkei225,
       updatedAt: stock.updatedAt.toISOString(),
     }));
