@@ -1,5 +1,6 @@
-# Issue 4: ランキングAPI
+# ランキングAPI
 
+- **GitHub**: [#2](https://github.com/mtdik0406/haitou-mikke/issues/2)
 - **ブランチ**: `feat/ranking-api`
 - **ステータス**: 未着手
 

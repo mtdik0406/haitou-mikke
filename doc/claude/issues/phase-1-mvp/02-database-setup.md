@@ -1,4 +1,4 @@
-# Issue 2: DB設定
+# DB設定
 
 - **ブランチ**: `feat/database-setup`
 - **ステータス**: 完了

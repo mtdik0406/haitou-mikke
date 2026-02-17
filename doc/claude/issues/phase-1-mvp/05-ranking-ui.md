@@ -1,5 +1,6 @@
-# Issue 5: ランキングUI
+# ランキングUI
 
+- **GitHub**: [#3](https://github.com/mtdik0406/haitou-mikke/issues/3)
 - **ブランチ**: `feat/ranking-ui`
 - **ステータス**: 未着手
 

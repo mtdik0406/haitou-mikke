@@ -1,5 +1,6 @@
-# Issue 6: 銘柄詳細ページ
+# 銘柄詳細ページ
 
+- **GitHub**: [#4](https://github.com/mtdik0406/haitou-mikke/issues/4)
 - **ブランチ**: `feat/stock-detail`
 - **ステータス**: 未着手
 

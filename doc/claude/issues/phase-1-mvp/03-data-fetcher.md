@@ -1,5 +1,6 @@
-# Issue 3: データ取得基盤
+# データ取得基盤
 
+- **GitHub**: [#1](https://github.com/mtdik0406/haitou-mikke/issues/1)
 - **ブランチ**: `feat/data-fetcher`
 - **ステータス**: 未着手
 
