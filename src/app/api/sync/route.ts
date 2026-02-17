@@ -12,6 +12,11 @@ export async function POST(request: NextRequest) {
     const authHeader = request.headers.get("authorization");
     const cronSecret = process.env.CRON_SECRET;
 
+    // 本番環境ではCRON_SECRET必須
+    if (process.env.NODE_ENV === "production" && !cronSecret) {
+      throw ApiError.internal("CRON_SECRET is not configured");
+    }
+
     if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
       throw ApiError.unauthorized("Invalid authorization");
     }
