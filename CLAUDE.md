@@ -15,9 +15,24 @@ pnpm test         # テスト
 pnpm build        # ビルド
 ```
 
+## ブランチ戦略
+
+```
+feature/* ──PR──> develop (ステージング) ──PR──> main (本番)
+                      │                           │
+                      ▼                           ▼
+              Vercelプレビュー              Vercel本番
+```
+
+| ブランチ | 用途 | デプロイ先 |
+|----------|------|------------|
+| `main` | 本番リリース | Vercel本番環境 |
+| `develop` | ステージング | Vercelプレビュー |
+| `feat/*`, `fix/*` | 機能開発 | PRプレビュー |
+
 ## 開発ルール（厳守）
 
-1. **mainブランチ直接コミット禁止** - featureブランチ → PR → マージ
+1. **main/developブランチ直接コミット禁止** - featureブランチ → develop → main
 2. **GitHub Issue駆動** - 作業前にIssue確認/作成、完了時にチェック更新
 3. **PRはIssueにリンク** - `Closes #番号` を本文に含める
 4. **品質チェック必須** - `pnpm check && pnpm test && pnpm build`
