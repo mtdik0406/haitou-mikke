@@ -1,5 +1,14 @@
 # 開発ワークフロー
 
+## ブランチ構造
+
+```
+feature/* ──PR──> develop (ステージング) ──PR──> main (本番)
+                      │                           │
+                      ▼                           ▼
+              Vercelプレビュー              Vercel本番
+```
+
 ## 開発フロー（必須手順）
 
 **GitHub Issueをベースに作業を進める。以下の手順を厳守すること。**
@@ -23,17 +32,21 @@ gh issue create --title "feat: 機能名" --body "## 作業内容
 ### 2. ブランチ作成・実装
 
 ```bash
+# developから最新を取得してブランチ作成
+git checkout develop
+git pull origin develop
 git checkout -b feat/機能名
+
 # 実装...
 pnpm check && pnpm test && pnpm build  # 品質チェック必須
 ```
 
-### 3. PR作成（Issueにリンク）
+### 3. PR作成（developへ）
 
 ```bash
-# 1. mainブランチの最新を取得してマージ
-git fetch origin main
-git merge origin/main
+# 1. developブランチの最新を取得してマージ
+git fetch origin develop
+git merge origin/develop
 
 # 2. 品質チェック
 pnpm check && pnpm test && pnpm build
@@ -42,10 +55,10 @@ pnpm check && pnpm test && pnpm build
 pnpm dev
 # http://localhost:3000 でアクセスし、問題ないことを確認
 
-# 4. コミット・プッシュ・PR作成
+# 4. コミット・プッシュ・PR作成（developへ）
 git add . && git commit -m "feat: 説明"
 git push -u origin feat/機能名
-gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
+gh pr create --base develop --title "feat: 機能名" --body "Closes #<Issue番号>
 
 ## Summary
 - 変更内容
@@ -53,23 +66,47 @@ gh pr create --base main --title "feat: 機能名" --body "Closes #<Issue番号>
 ## Test plan
 - テスト方法"
 
-# 5. CIが通ることを確認してからマージ
+# 5. CIとプレビューデプロイを確認
 gh pr checks <PR番号> --watch
+# プレビューURLで動作確認
 ```
 
-### 4. マージ・Issue更新
+### 4. developへマージ
 
 ```bash
 gh pr merge <PR番号> --squash --delete-branch
 gh issue edit <Issue番号> --body "（完了項目に[x]を付ける）"
 
-# mainに戻ってブランチ参照を整理
-git checkout main
-git pull origin main
+# developに戻ってブランチ参照を整理
+git checkout develop
+git pull origin develop
 git fetch --prune  # 削除済みリモートブランチの参照を削除
 ```
 
-### 5. Issueクローズ
+### 5. 本番リリース（develop → main）
+
+リリースタイミングでdevelopからmainへPRを作成:
+
+```bash
+# developから最新を取得
+git checkout develop
+git pull origin develop
+
+# mainへのリリースPR作成
+gh pr create --base main --head develop --title "release: vX.X.X" --body "## リリース内容
+- 機能A
+- 機能B
+
+## 確認済み
+- [ ] developで動作確認済み"
+
+# マージ後、developを最新に同期
+git checkout develop
+git pull origin main
+git push origin develop
+```
+
+### 6. Issueクローズ
 
 **チェックリストが全て完了したらIssueをクローズする。**
 
