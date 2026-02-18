@@ -1,5 +1,6 @@
 import { ApiError, handleApiError } from "@/lib/api-error";
 import { prisma } from "@/lib/prisma";
+import type { Stock } from "@prisma/client";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -110,7 +111,7 @@ export async function GET(request: NextRequest) {
     });
 
     // レスポンスを整形（0値を正しく扱うため != null でチェック）
-    const data: StockItem[] = stocks.map((stock) => ({
+    const data: StockItem[] = stocks.map((stock: Stock) => ({
       code: stock.code,
       name: stock.name,
       sector: stock.sector,
